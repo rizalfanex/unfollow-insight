@@ -25,7 +25,7 @@
 ---
 
 ## 🖼️ Screenshot
-![Preview](https://i.ibb.co/J7ZkMSh/tester.png)
+![Preview](tester.png)
 
 ---
 
