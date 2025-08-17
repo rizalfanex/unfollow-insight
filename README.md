@@ -19,9 +19,8 @@
 
 ## 🎥 Demo
 👉 Cek live demo via GitHub Pages:  
-**https://USERNAME.github.io/unfollow-insight/**  
+**[https://rizalfanex.github.io/unfollow-insight/](https://rizalfanex.github.io/unfollow-insight/)**  
 
-*(ganti `USERNAME` dengan username GitHub kamu)*
 
 ---
 
