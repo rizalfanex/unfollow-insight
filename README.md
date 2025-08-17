@@ -25,7 +25,7 @@
 ---
 
 ## 🖼️ Screenshot
-![Preview](https://i.ibb.co/J7ZkMSh/unfollow-insight-preview.png)
+![Preview](https://i.ibb.co/J7ZkMSh/tester.png)
 
 ---
 
