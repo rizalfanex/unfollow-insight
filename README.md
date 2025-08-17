@@ -1,8 +1,8 @@
 # 🚀 Unfollow Insight  
 📊 *Instagram Followback Checker – siapa aja yang nggak followback kamu*
 
-![GitHub last commit](https://img.shields.io/github/last-commit/USERNAME/unfollow-insight?color=blue&style=flat-square)
-![GitHub repo size](https://img.shields.io/github/repo-size/USERNAME/unfollow-insight?color=green&style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/rizalfanex/unfollow-insight?color=blue&style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/rizalfanex/unfollow-insight?color=green&style=flat-square)
 ![Made with](https://img.shields.io/badge/Made%20with-❤️%20%26%20☕-red?style=flat-square)
 
 ---
