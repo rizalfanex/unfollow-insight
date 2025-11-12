@@ -14,74 +14,33 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      transition: background 0.3s, color 0.3s;
-    }
-    .card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-    /* Custom Dark Theme */
-    .dark-theme {
-      background: #111827 !important;
-      color: #f3f4f6 !important;
-    }
-    .dark-theme .card {
-      background: #1f2937 !important;
-      color: #f3f4f6 !important;
-    }
-    .dark-theme table.dataTable {
-      color: #f3f4f6 !important;
-    }
+    body { font-family: 'Inter', sans-serif; transition: background 0.3s, color 0.3s; }
+    .card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+    /* Dark Theme */
+    .dark-theme { background: #111827 !important; color: #f3f4f6 !important; }
+    .dark-theme .card { background: #1f2937 !important; color: #f3f4f6 !important; }
+    .dark-theme table.dataTable { color: #f3f4f6 !important; }
     .dark-theme .dataTables_wrapper .dataTables_filter input,
     .dark-theme .dataTables_wrapper .dataTables_length select {
-      background: #374151;
-      color: #f3f4f6;
-      border: 1px solid #4b5563;
+      background: #374151; color: #f3f4f6; border: 1px solid #4b5563;
     }
 
-    /* --- Tambahan biar tabel controls lebih rapi --- */
-    .dataTables_wrapper .top {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .dataTables_length select {
-      border: 1px solid #d1d5db;
-      border-radius: 0.5rem;
-      padding: 0.25rem 0.5rem;
-      background: white;
-    }
-    .dataTables_filter input {
-      border: 1px solid #d1d5db;
-      border-radius: 0.5rem;
-      padding: 0.4rem 0.75rem;
+    .dataTables_wrapper .top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .dataTables_length select, .dataTables_filter input {
+      border: 1px solid #d1d5db; border-radius: 0.5rem; padding: 0.4rem 0.75rem;
     }
     .dt-buttons .dt-button {
-      background: #4f46e5 !important;
-      color: white !important;
-      border: none !important;
-      border-radius: 0.5rem !important;
-      padding: 0.4rem 0.8rem !important;
-      margin-right: 0.3rem !important;
-      font-weight: 500;
-      transition: background 0.2s ease;
+      background: #4f46e5 !important; color: white !important; border: none !important;
+      border-radius: 0.5rem !important; padding: 0.4rem 0.8rem !important;
+      margin-right: 0.3rem !important; font-weight: 500; transition: background 0.2s ease;
     }
-    .dt-buttons .dt-button:hover {
-      background: #4338ca !important;
-    }
+    .dt-buttons .dt-button:hover { background: #4338ca !important; }
   </style>
 </head>
 <body class="bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 min-h-screen flex items-center justify-center p-4 md:p-6">
   <div class="w-full max-w-6xl bg-white rounded-2xl shadow-xl p-6 md:p-8 card">
-    <!-- Header -->
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-3xl font-bold text-indigo-700">Unfollow Insight</h1>
       <button id="darkModeToggle" class="px-3 py-2 rounded-lg bg-gray-200 text-gray-700">
@@ -90,13 +49,12 @@
     </div>
     <p class="text-gray-600 mb-6">Upload data Instagram Anda untuk mengetahui siapa saja yang tidak followback.</p>
 
-    <!-- Upload Section -->
+    <!-- Upload -->
     <div class="grid md:grid-cols-2 gap-6 mb-6">
       <div>
         <label class="block mb-2 font-semibold">Upload Followers JSON (bisa lebih dari 1):</label>
         <input type="file" id="followers" multiple accept=".json" class="w-full border border-gray-300 rounded-lg p-2">
       </div>
-
       <div>
         <label class="block mb-2 font-semibold">Upload Following JSON:</label>
         <input type="file" id="following" accept=".json" class="w-full border border-gray-300 rounded-lg p-2">
@@ -123,14 +81,14 @@
       </div>
     </div>
 
-    <!-- Results Section -->
+    <!-- Results -->
     <div id="results" class="bg-gray-50 rounded-xl p-4 md:p-6 hidden overflow-x-auto">
       <h2 class="text-xl font-bold mb-4 text-indigo-700">📊 Hasil Analisis</h2>
       <table id="notFollowTable" class="display nowrap w-full rounded-lg overflow-hidden"></table>
     </div>
   </div>
 
-  <!-- jQuery & DataTables -->
+  <!-- JS -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
@@ -142,7 +100,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
   <script>
-    // Dark mode toggle
     document.getElementById("darkModeToggle").addEventListener("click", () => {
       document.body.classList.toggle("dark-theme");
     });
@@ -150,56 +107,55 @@
     async function readFile(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = e => resolve(JSON.parse(e.target.result));
+        reader.onload = e => {
+          try { resolve(JSON.parse(e.target.result)); }
+          catch (err) { reject(err); }
+        };
         reader.onerror = e => reject(e);
         reader.readAsText(file);
       });
     }
 
     async function processFiles() {
-      let followersFiles = document.getElementById('followers').files;
-      let followingFile = document.getElementById('following').files[0];
+      const followersFiles = document.getElementById('followers').files;
+      const followingFile = document.getElementById('following').files[0];
 
       if (!followersFiles.length || !followingFile) {
-        alert("Harap upload semua file JSON dulu!");
+        alert("⚠️ Harap upload semua file JSON terlebih dahulu!");
         return;
       }
 
       let followersSet = new Set();
 
-      // Gabungkan semua followers
+      // Followers JSON
       for (let file of followersFiles) {
         let data = await readFile(file);
         data.forEach(entry => {
-          if (entry.string_list_data && entry.string_list_data.length > 0) {
+          if (entry.string_list_data?.[0]?.value) {
             followersSet.add(entry.string_list_data[0].value);
           }
         });
       }
 
-      // Ambil following
+      // Following JSON
       let followingData = await readFile(followingFile);
       let followingSet = new Set();
       followingData.relationships_following.forEach(entry => {
-        if (entry.string_list_data && entry.string_list_data.length > 0) {
-          followingSet.add(entry.string_list_data[0].value);
-        }
+        const username = entry.title || entry.string_list_data?.[0]?.value;
+        if (username) followingSet.add(username);
       });
 
-      // Cari akun yang tidak followback
+      // Filter
       let notFollowBack = [...followingSet].filter(user => !followersSet.has(user));
 
-      // Update stats
+      // Stats
       document.getElementById("statFollowing").innerText = followingSet.size;
       document.getElementById("statFollowers").innerText = followersSet.size;
       document.getElementById("statNotBack").innerText = notFollowBack.length;
       document.getElementById("stats").classList.remove("hidden");
 
-      // Show results
-      let resultsDiv = document.getElementById('results');
-      resultsDiv.classList.remove("hidden");
-
-      // DataTable
+      // Tabel
+      document.getElementById('results').classList.remove("hidden");
       $('#notFollowTable').DataTable({
         destroy: true,
         data: notFollowBack.map((u, i) => [
